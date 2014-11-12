@@ -64,4 +64,13 @@ public class MethodAttributes {
         result = 31 * result + (methodType != null ? methodType.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "MethodAttributes{" +
+                "controllerClass='" + controllerClass + '\'' +
+                ", methodName='" + methodName + '\'' +
+                ", methodType='" + methodType + '\'' +
+                '}';
+    }
 }

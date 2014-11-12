@@ -1,5 +1,7 @@
 package ro.z2h.utils;
 
+import org.codehaus.jackson.map.ser.std.StdArraySerializers;
+
 import java.sql.*;
 import java.util.HashMap;
 
@@ -7,6 +9,8 @@ import java.util.HashMap;
  * DatabaseManager.java
  */
 public class DatabaseManager {
+    public static final String USERNAME = "ZTH_19";
+    public static final String PASSWORD = "passw0rd";
     public static Connection getConnection(String username, String password) {
 
         Connection con = null;
