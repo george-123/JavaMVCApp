@@ -39,14 +39,18 @@ public class EmployeeController {
     }
 
     @MyRequestMethod(urlPath = "/one")
-    public Employee getOneEmployee(String id){
+    public Employee getOneEmployee(String idEmployee){
         /*
         Employee employee = new Employee();
         employee.setId(1L);
         employee.setLastName("George");
         return employee;
         */
+        return (new EmployeeServiceImpl().findOneEmployee(Long.parseLong(idEmployee)));
+    }
 
-        return (new EmployeeServiceImpl().findOneEmployee(Long.parseLong(id)));
+    @MyRequestMethod(urlPath = "/two")
+    public String lala(String a, String b){
+        return (a + " == " + b);
     }
 }

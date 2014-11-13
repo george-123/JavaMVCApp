@@ -37,8 +37,8 @@ public class DepartmentController {
     }
 
     @MyRequestMethod(urlPath = "/one")
-    public Department getOneDepartment(String id){
-        return (new DepartmentServiceImpl().findOneDepartment(Long.parseLong(id)));
+    public Department getOneDepartment(String idDepartment){
+        return (new DepartmentServiceImpl().findOneDepartment(Long.parseLong(idDepartment)));
         //          return (new EmployeeServiceImpl().findOneEmployee(Long.parseLong(id)));
         /*
         Department department = new Department();

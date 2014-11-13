@@ -23,6 +23,14 @@ hrApp.config(['$routeProvider',
                 templateUrl: 'templates/employeedelete.html',
                 controller: 'EmployeeDeleteController'
             })
+
+
+            .when('/departmentslist', {
+                templateUrl: 'templates/departmentslist.html',
+                controller: 'DepartmentsListController'
+            })
+
+
             .otherwise({
                 templateUrl: 'templates/main.html',
                 controller: 'MainController'

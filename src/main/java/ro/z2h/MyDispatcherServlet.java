@@ -19,11 +19,9 @@ import java.io.PrintWriter;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.rmi.activation.ActivationDesc;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by George on 11/11/2014.
@@ -56,7 +54,7 @@ public class MyDispatcherServlet extends HttpServlet {
                             methodAttributes.setControllerClass(aClass.getName());
                             methodAttributes.setMethodName(method.getName());
                             methodAttributes.setMethodType(methodAnnotation.methodType());
-
+                            methodAttributes.setMethodParameterTypes(method.getParameterTypes());
 
                             myHashMap.put(urlPath + methodAnnotation.urlPath(), methodAttributes);
                         }
@@ -135,8 +133,8 @@ public class MyDispatcherServlet extends HttpServlet {
 
 
                 Object responseProcesare = null;
-
-
+                /*
+                // my implementation - it's work!
                 Enumeration<String> parameterNames = req.getParameterNames();
                 if (parameterNames.hasMoreElements()){
                     Method methodWithParameters = controllerClass.getMethod(methodAttributes.getMethodName(),String.class);
@@ -153,6 +151,20 @@ public class MyDispatcherServlet extends HttpServlet {
                     Method method = controllerClass.getMethod(methodAttributes.getMethodName());
                     responseProcesare = method.invoke(controllerInstance);
                 }
+                */
+                Method method = controllerClass.getMethod(methodAttributes.getMethodName(), methodAttributes.getMethodParameterTypes());
+
+                Parameter[] realMethodParameters = method.getParameters();
+                List<String> methodParamsValues = new ArrayList<String>();
+
+                for (Parameter realMethodParameter : realMethodParameters) {
+                    String parameter = req.getParameter(realMethodParameter.getName());
+                    methodParamsValues.add(parameter);
+                }
+                responseProcesare = method.invoke(controllerInstance, (String[]) methodParamsValues.toArray(new String[0]));
+               // responseProcesare = method.invoke(controllerInstance, (String[])methodParamsValues.toArray(new String[0]),
+               //         (String[])methodParamsValues.toArray(new String[1]));
+
                 return responseProcesare;
 
             } catch (ClassNotFoundException e) {
